@@ -1,0 +1,71 @@
+{
+  "name": "deartts",
+  "version": "0.1.0",
+  "description": "Personalized MiMo TTS desktop app",
+  "author": "DearTTS",
+  "private": true,
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "electron": "electron .",
+    "electron:dev": "concurrently -k \"npm run dev -- --hostname 127.0.0.1 --port 3000\" \"wait-on http://127.0.0.1:3000 && electron .\"",
+    "electron:pack": "npm run build && set ELECTRON_BUILDER_CACHE=.cache\\electron-builder&& electron-builder --dir",
+    "electron:installer": "npm run build && set ELECTRON_BUILDER_CACHE=.cache\\electron-builder&& electron-builder --win --x64",
+    "electron:dir": "npm run electron:pack"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.2.1",
+    "electron": "^42.2.0",
+    "electron-builder": "^26.8.1",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.3.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.0",
+    "wait-on": "^9.0.10"
+  },
+  "build": {
+    "appId": "com.deartts.app",
+    "productName": "DearTTS",
+    "asar": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      ".next/**/*",
+      "electron/**/*",
+      "next.config.mjs",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "forceCodeSigning": false,
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
